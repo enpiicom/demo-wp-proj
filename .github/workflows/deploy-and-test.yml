@@ -1,0 +1,42 @@
+name: Deploy And Test
+on:
+  pull_request:
+    branches:
+      - develop
+jobs:
+  deploy-and-test:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Install sshpass
+        run: sudo apt-get install -y sshpass
+
+      - name: Deploy and Run Tests on Server
+        run: |
+          # Define server credentials
+          SERVER="demo-origin.dev-srv.net"
+          USERNAME="enpiidemo"
+          PASSWORD="6c9TE7KrgemuwO54t3"
+          REMOTE_DIR="/home/enpiidemo/www/enpiicom/demo/wp-proj"
+
+          # Use sshpass for password-based SSH login and run the commands remotely
+          sshpass -p "$PASSWORD" ssh -o StrictHostKeyChecking=no $USERNAME@$SERVER << EOF
+            # Navigate to the project directory
+            cd $REMOTE_DIR
+
+            # Reset any local changes and pull the latest code
+            git reset --hard HEAD
+            git pull origin develop
+
+            # Install dependencies
+            composer install
+            yarn install
+            yarn build-plugin
+            yarn build-theme
+
+            # Run PHPUnit tests
+            yarn phpunit
+          EOF
