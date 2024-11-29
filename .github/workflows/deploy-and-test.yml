@@ -29,6 +29,7 @@ jobs:
 
             # Reset any local changes and pull the latest code
             git reset --hard HEAD
+            git checkout develop
             git pull origin develop
 
             # Install dependencies
