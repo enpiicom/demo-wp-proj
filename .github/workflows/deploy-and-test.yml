@@ -35,7 +35,7 @@ jobs:
             echo "Resetting git and pulling the latest code..."
             git reset --hard HEAD || exit 1
             git checkout develop || exit 1
-            git pull origin develop || exit 1
+            git pull enpiidev develop || exit 1
 
             # Install dependencies
             echo "Installing Composer dependencies..."
