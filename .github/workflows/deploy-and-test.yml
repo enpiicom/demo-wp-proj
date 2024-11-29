@@ -16,6 +16,9 @@ jobs:
 
       - name: Deploy and Run Tests on Server
         run: |
+          # Stop execution if any command fails
+          set -e
+
           # Define server credentials
           SERVER="demo-origin.dev-srv.net"
           USERNAME="enpiidemo"
@@ -30,7 +33,7 @@ jobs:
             # Reset any local changes and pull the latest code
             git reset --hard HEAD
             git checkout develop
-            git pull enpiidev develop
+            git pull origin develop
 
             # Install dependencies
             composer install
