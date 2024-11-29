@@ -1,9 +1,9 @@
-name: Deploy And Test
+name: Deploy and Test
 on:
-  pull_request:
+  push:
     branches:
-    - master
-    - develop
+      - master
+      - develop
 jobs:
   deploy-and-test:
     runs-on: ubuntu-latest
