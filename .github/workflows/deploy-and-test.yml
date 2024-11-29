@@ -2,7 +2,8 @@ name: Deploy And Test
 on:
   pull_request:
     branches:
-      - develop
+    - master
+    - develop
 jobs:
   deploy-and-test:
     runs-on: ubuntu-latest
